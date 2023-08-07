@@ -1,33 +1,39 @@
 package jpabasic.ex1hellojpa;
 
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 public class Member {
 
   @Id
   private Long id;
-  private String name;
 
-  public Member(Long id, String name) {
-    this.id = id;
-    this.name = name;
-  }
+  @Column(name = "name")
+  private String username;
 
-  public Long getId() {
-    return id;
-  }
+  private Integer age;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+  @Enumerated(EnumType.STRING)
+  private RoleType roleType;
 
-  public String getName() {
-    return name;
-  }
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdDate;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date lastModifiedDate;
+
+  @Lob
+  private String description;
 }
