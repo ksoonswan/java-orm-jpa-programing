@@ -16,21 +16,14 @@ public class JpaMain {
     tx.begin();
 
     try {
-      // 비영속
-      Member member = new Member();
-      member.setId(101L);
-      member.setName("HelloJPAPA");
-
       // 영속
-      System.out.println("========111111=========");
-      em.persist(member);
-      System.out.println("========222222=========");
+      Member member1 = new Member(150L, "A");
+      Member member2 = new Member(160L, "B");
 
-      Member member1 = em.find(Member.class, 100L);
-      Member member2 = em.find(Member.class, 100L);
+      em.persist(member1);
+      em.persist(member2);
 
-      System.out.println("member1>>>>>>>" + member1.getId());
-      System.out.println("member1==member2: " + (member1 == member2));
+      System.out.println("==========================");
 
       tx.commit();
     } catch (Exception e) {
