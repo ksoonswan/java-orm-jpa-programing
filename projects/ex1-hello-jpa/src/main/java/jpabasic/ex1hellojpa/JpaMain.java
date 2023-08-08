@@ -1,5 +1,6 @@
 package jpabasic.ex1hellojpa;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -27,7 +28,15 @@ public class JpaMain {
       member.setTeam(team);
       em.persist(member);
 
+      em.flush();
+      em.clear();
+
       Member findMember = em.find(Member.class, member.getId());
+      List<Member> members = findMember.getTeam().getMembers();
+
+      for (Member mbr : members) {
+        System.out.println("Member: " + mbr.getUserName());
+      }
 
       Team findTeam = findMember.getTeam();
 
