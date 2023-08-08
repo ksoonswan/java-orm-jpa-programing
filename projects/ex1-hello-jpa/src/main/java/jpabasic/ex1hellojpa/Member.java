@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,5 +21,7 @@ public class Member {
 
   private String userName;
 
-  private Long teamId;
+  @ManyToOne
+  @JoinColumn(name = "team_id")
+  private Team team;
 }
