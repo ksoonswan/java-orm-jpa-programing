@@ -5,6 +5,8 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,11 +15,14 @@ import lombok.Setter;
 @Entity
 public class Item {
 
-  @Id @GeneratedValue
+  @Id
+  @GeneratedValue
   @Column(name = "item_id")
   private Long id;
 
   private String name;
+
   private int price;
+
   private int stockQuantity;
 }
