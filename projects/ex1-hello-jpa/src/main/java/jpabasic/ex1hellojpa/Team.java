@@ -7,17 +7,15 @@ import javax.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
 @Entity
-public class Member {
+@Getter
+@Setter
+public class Team {
 
   @Id
   @GeneratedValue
-  @Column(name = "member_id")
+  @Column(name = "team_id")
   private Long id;
 
-  private String userName;
-
-  private Long teamId;
+  private String name;
 }
