@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,8 +30,12 @@ public class Order {
   @JoinColumn(name = "member_id")
   private Member member;
 
-  @OneToMany(mappedBy = "order")
+  @OneToMany
+  @JoinColumn(name="delivery_id")
   private List<OrderItem> orderItems;
+
+  @OneToOne
+  private Delivery delivery;
 
   private LocalDateTime orderDate;
 
