@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public abstract class Team extends BaseEntity {
+public class Team extends BaseEntity {
 
   @Id
   @GeneratedValue
