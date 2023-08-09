@@ -19,25 +19,25 @@ public class JpaMain {
 
     try {
 
-      Member member = new Member();
-      member.setUserName("hello");
+      Member member1 = new Member();
+      member1.setUserName("member1");
+      em.persist(member1);
 
-      em.persist(member);
+      Member member2 = new Member();
+      member1.setUserName("member2");
+      em.persist(member2);
 
       em.flush();
       em.clear();
 
-      //
-//      Member findMember = em.find(Member.class, member.getId());
+      Member m1 = em.find(Member.class, member1.getId());
+      Member m2 = em.find(Member.class, member2.getId());
 
-      // getReference는 이 소스를 사용할때가아닌, findMember를 직접적으로 사용할때 쿼리가 나간다.
-      //  => 프록시에 데이더가 없기 때문에 디비를 통해서 엔티티를 가져온다음 보여준다고 생각하면 된다.
-      // 프록시의 예시이다.
-      Member findMember = em.getReference(Member.class, member.getId());
+      System.out.println("m1 == m2: " + (m1.getClass() == m2.getClass()));
 
-      //findMember >>>>>> class hellojpa.Member$HibernateProxy$BE8JyB2c
-      System.out.println("findMember >>>>>> " + findMember.getClass());
-      printMember(findMember);
+      Member reference = em.getReference(Member.class, member1.getId());
+      System.out.println("reference = " + reference.getClass());
+      System.out.println("m1 = reference: " + (m1.getClass() == reference.getClass()));
 
       tx.commit();
     } catch (Exception e) {
