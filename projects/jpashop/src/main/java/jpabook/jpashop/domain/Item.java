@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -13,7 +14,8 @@ import lombok.Setter;
 @Getter
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Item {
+@DiscriminatorColumn
+public abstract class Item extends BaseEntity {
 
   @Id
   @GeneratedValue
