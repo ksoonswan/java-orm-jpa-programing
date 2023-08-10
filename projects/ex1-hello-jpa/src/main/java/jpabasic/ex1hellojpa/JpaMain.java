@@ -18,19 +18,35 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Address address = new Address("city", "street", "1001000");
 
       Member member = new Member();
       member.setUserName("member1");
-      member.setAddress(address);
+      member.setAddress(new Address("homeCity", "street", "110-2222"));
+
+      member.getFavoriteFoods().add("치킨");
+      member.getFavoriteFoods().add("족발");
+      member.getFavoriteFoods().add("피자");
+
+      member.getAddressHistory().add(new Address("old1", "street", "110-2222"));
+      member.getAddressHistory().add(new Address("old2", "street", "110-2222"));
+
       em.persist(member);
 
-      Address address2 = new Address(address.getCity(), address.getStreet(), address.getZipcode());
-      member.setAddress(address2);
+      em.flush();
+      em.clear();
 
-      //
+      Member member1 = em.find(Member.class, member.getId());
 
-//      member.getAddress().setCity("newCity");
+      member1.setAddress(new Address("newCity", member1.getAddress().getStreet(), member1.getAddress().getZipcode()));
+
+      // 치킨 -> 한식
+      member1.getFavoriteFoods().remove("치킨");
+      member1.getFavoriteFoods().add("한식");
+
+      member1.getAddressHistory().remove(new Address("old1", "street", "110-2222"));
+      member1.getAddressHistory().add(new Address("newCity", "street", "110-2222"));
+
+      System.out.println();
 
       tx.commit();
     } catch (Exception e) {
