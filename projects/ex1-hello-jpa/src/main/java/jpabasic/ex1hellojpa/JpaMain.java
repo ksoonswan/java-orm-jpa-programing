@@ -18,11 +18,21 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Member member = new Member();
-      member.setUserName("swan");
-      member.setAddress(new Address("city", "street", "1001000"));
+      Address address = new Address("city", "street", "1001000");
 
+      Member member = new Member();
+      member.setUserName("member1");
+      member.setAddress(address);
       em.persist(member);
+
+      Member member2 = new Member();
+      member2.setUserName("member2");
+      member2.setAddress(address);
+      em.persist(member2);
+
+      //
+
+      member.getAddress().setCity("newCity");
 
       tx.commit();
     } catch (Exception e) {
