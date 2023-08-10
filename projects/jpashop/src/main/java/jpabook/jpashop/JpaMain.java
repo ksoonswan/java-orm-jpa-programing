@@ -4,7 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import jpabook.jpashop.domain.Book;
+import java.util.List;
+import jpabook.jpashop.domain.Member;
 
 
 public class JpaMain {
@@ -19,11 +20,9 @@ public class JpaMain {
 
     try {
 
-      Book book = new Book();
-      book.setName("JPA");
-      book.setAuthor("김수환");
-
-      em.persist(book);
+      List resultList = em.createQuery("select m from Member m where m.name like '%kim%'",
+              Member.class)
+          .getResultList();
 
       tx.commit();
     } catch (Exception e) {

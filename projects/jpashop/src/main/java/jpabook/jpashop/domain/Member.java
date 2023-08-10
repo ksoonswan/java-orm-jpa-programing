@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Member extends BaseEntity {
+public class Member {
 
   @Id
   @GeneratedValue

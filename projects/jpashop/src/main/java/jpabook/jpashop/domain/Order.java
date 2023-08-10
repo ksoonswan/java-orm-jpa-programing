@@ -34,7 +34,6 @@ public class Order {
   private Member member;
 
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-  @JoinColumn(name = "delivery_id")
   private List<OrderItem> orderItems;
 
   @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
