@@ -1,9 +1,7 @@
 package jpabasic.ex1hellojpa;
 
-import hellojpa.Child;
+import hellojpa.Address;
 import hellojpa.Member;
-import hellojpa.Parent;
-import hellojpa.Team;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -20,21 +18,11 @@ public class JpaMain {
     tx.begin();
 
     try {
+      Member member = new Member();
+      member.setUserName("swan");
+      member.setAddress(new Address("city", "street", "1001000"));
 
-      Child child1 = new Child();
-      Child child2 = new Child();
-
-      Parent parent = new Parent();
-      parent.addChild(child1);
-      parent.addChild(child2);
-
-      em.persist(parent);
-
-      em.flush();
-      em.clear();
-
-      Parent findParent = em.find(Parent.class, parent.getId());
-      findParent.getChildList().remove(0);
+      em.persist(member);
 
       tx.commit();
     } catch (Exception e) {
@@ -48,19 +36,5 @@ public class JpaMain {
 
   }
 
-  private static void printMember(Member member) {
-    System.out.println(">>>>>>>>>>>>>>>>>");
-    String userName = member.getUserName();
-    System.out.println("userName: " + userName);
-  }
-
-  private static void printMemberTeam(Member member) {
-    System.out.println(">>>>>>>>>>>>>>>>>");
-    String userName = member.getUserName();
-    System.out.println("userName: " + userName);
-
-    Team team = member.getTeam();
-    System.out.println("team: " + team.getName());
-  }
 
 }
