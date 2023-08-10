@@ -1,9 +1,11 @@
 package jpabook.jpashop.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -22,19 +24,20 @@ import lombok.Setter;
 @Table(name = "orders")
 public class Order {
 
-  @Id @GeneratedValue
+  @Id
+  @GeneratedValue
   @Column(name = "order_id")
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_id")
   private Member member;
 
-  @OneToMany
-  @JoinColumn(name="delivery_id")
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+  @JoinColumn(name = "delivery_id")
   private List<OrderItem> orderItems;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Delivery delivery;
 
   private LocalDateTime orderDate;
