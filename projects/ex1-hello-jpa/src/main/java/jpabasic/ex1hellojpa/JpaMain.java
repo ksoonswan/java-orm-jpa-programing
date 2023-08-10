@@ -34,7 +34,7 @@ public class JpaMain {
 
       //
 
-      member.getAddress().setCity("newCity");
+//      member.getAddress().setCity("newCity");
 
       tx.commit();
     } catch (Exception e) {
