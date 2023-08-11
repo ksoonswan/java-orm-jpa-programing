@@ -25,7 +25,7 @@ public class JpaMain {
       member.setAge(100);
       em.persist(member);
 
-      List<Team> resultList = em.createQuery("select m.team from Member m ", Team.class)
+      List<Team> resultList = em.createQuery("select m from Member m left join Team t on t.name = m.userName", Team.class)
           .setFirstResult(0)
           .setMaxResults(10)
           .getResultList();
