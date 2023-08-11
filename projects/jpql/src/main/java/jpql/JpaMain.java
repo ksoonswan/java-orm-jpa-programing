@@ -26,6 +26,8 @@ public class JpaMain {
       em.persist(member);
 
       List<Team> resultList = em.createQuery("select m.team from Member m ", Team.class)
+          .setFirstResult(0)
+          .setMaxResults(10)
           .getResultList();
 
       for (Team member1 : resultList) {
