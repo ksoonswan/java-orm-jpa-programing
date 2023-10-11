@@ -4,9 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import java.util.List;
 import jpql.entity.Member;
-import jpql.entity.Team;
 
 public class JpaMain {
 
@@ -25,14 +23,15 @@ public class JpaMain {
       member.setAge(100);
       em.persist(member);
 
-      List<Team> resultList = em.createQuery("select m from Member m left join Team t on t.name = m.userName", Team.class)
-          .setFirstResult(0)
-          .setMaxResults(10)
-          .getResultList();
+      em.flush();
+      em.clear();
 
-      for (Team member1 : resultList) {
-        System.out.println("member: " + member1.getName());
-      }
+      String query =
+          "select " +
+              "case when m.age <= 10 then '학생요금'"
+              + "else '일반요금' end " +
+              "from Member m ";
+      em.createQuery(query).getResultList();
 
       tx.commit();
     } catch (Exception e) {
