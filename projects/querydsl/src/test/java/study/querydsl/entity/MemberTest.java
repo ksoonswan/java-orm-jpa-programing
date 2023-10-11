@@ -1,5 +1,8 @@
 package study.querydsl.entity;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
@@ -41,5 +44,25 @@ class MemberTest {
             System.out.println("member = " + m);
             System.out.println("-> member.team = " + m.getTeam());
         }
+    }
+
+    @Test
+    public void startJPQL() {
+        // member1 을 찾아라
+        Member member = em.createQuery("select m from Member m where m.username = :username", Member.class)
+                .setParameter("username", "member1")
+                .getSingleResult();
+        assertThat(member.getUsername()).isEqualTo("member1");
+    }
+
+    @Test
+    public void startQueryDsl() {
+        // member1 을 찾아라
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QMember member = QMember.member;
+        Member findmember = queryFactory.selectFrom(member)
+                .where(member.username.eq("member1"))
+                .fetchOne();
+        assertThat(findmember.getUsername()).isEqualTo("member1");
     }
 }
